@@ -11,6 +11,7 @@ public class InteractionController {
 
     public static void main(String[] args) {
 
+
         InteractionController controller = new InteractionController();
 
         controller.likePost(1L, 10L);
