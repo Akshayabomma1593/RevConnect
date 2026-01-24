@@ -1,5 +1,4 @@
 
-
 package com.revconnect.model;
 
 import java.time.LocalDateTime;
