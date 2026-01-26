@@ -1,73 +1,53 @@
 package com.revconnect.dao;
 
-import com.revconnect.model.Interaction;
-import com.revconnect.model.PostAnalytics;
 import com.revconnect.util.JDBCUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class InteractionDaoImpl implements InteractionDao {
+public class InteractionDaoImpl {
 
-    @Override
-    public void saveInteraction(Interaction interaction) {
+    // INSERT interaction
+    public void saveInteraction(long userId, long postId, String type, String comment) {
 
-        String sql = "INSERT INTO interaction (user_id, post_id, type, comment) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO interactions " +
+                "(user_id, post_id, interaction_type, comment_text) " +
+                "VALUES (?, ?, ?, ?)";
 
         try (Connection con = JDBCUtil.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, interaction.getUserId());
-            ps.setInt(2, interaction.getPostId());
-            ps.setString(3, interaction.getInteractionType());
-            ps.setString(4, interaction.getCommentText());
+            ps.setLong(1, userId);
+            ps.setLong(2, postId);
+            ps.setString(3, type);
+            ps.setString(4, comment);
 
             ps.executeUpdate();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("❌ Failed to save interaction", e);
         }
     }
 
-    @Override
-    public PostAnalytics getPostAnalytics(int postId) {
+    // COUNT by type
+    public int countByType(long postId, String type) {
 
-        PostAnalytics analytics = new PostAnalytics();
-        analytics.setPostId(postId);
+        String sql = "SELECT COUNT(*) FROM interactions " +
+                "WHERE post_id = ? AND interaction_type = ?";
 
-        try (Connection con = JDBCUtil.getConnection()) {
+        try (Connection con = JDBCUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-            analytics.setTotalLikes(countByType(con, postId, "LIKE"));
-            analytics.setTotalComments(countByType(con, postId, "COMMENT"));
-            analytics.setTotalShares(countByType(con, postId, "SHARE"));
-
-            analytics.setReach(
-                    analytics.getTotalLikes()
-                            + analytics.getTotalComments()
-                            + analytics.getTotalShares()
-            );
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return analytics;
-    }
-
-    private int countByType(Connection con, int postId, String type) throws Exception {
-
-        String sql = "SELECT COUNT(*) FROM interaction WHERE post_id=? AND type=?";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, postId);
+            ps.setLong(1, postId);
             ps.setString(2, type);
 
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (Exception e) {
+            throw new RuntimeException("❌ Failed to count interactions", e);
         }
-        return 0;
     }
 }

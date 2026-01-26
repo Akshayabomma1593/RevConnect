@@ -1,49 +1,35 @@
 package com.revconnect.service;
 
-import com.revconnect.dao.InteractionDao;
 import com.revconnect.dao.InteractionDaoImpl;
-import com.revconnect.model.Interaction;
-import com.revconnect.model.PostAnalytics;
 
-import java.time.LocalDateTime;
+public class InteractionServiceImpl {
 
-public class InteractionServiceImpl implements InteractionService {
+    private final InteractionDaoImpl dao = new InteractionDaoImpl();
 
-    private final InteractionDao interactionDao = new InteractionDaoImpl();
-
-    @Override
-    public void likePost(int userId, int postId) {
-        Interaction i = new Interaction();
-        i.setUserId(userId);
-        i.setPostId(postId);
-        i.setInteractionType("LIKE");
-        i.setCreatedAt(LocalDateTime.now());
-        interactionDao.saveInteraction(i);
+    public void likePost(long userId, long postId) {
+        dao.saveInteraction(userId, postId, "LIKE", null);
+        System.out.println("✅ Post liked successfully");
     }
 
-    @Override
-    public void commentPost(int userId, int postId, String comment) {
-        Interaction i = new Interaction();
-        i.setUserId(userId);
-        i.setPostId(postId);
-        i.setInteractionType("COMMENT");
-        i.setCommentText(comment);
-        i.setCreatedAt(LocalDateTime.now());
-        interactionDao.saveInteraction(i);
+    public void commentPost(long userId, long postId, String comment) {
+        dao.saveInteraction(userId, postId, "COMMENT", comment);
+        System.out.println("✅ Comment added successfully");
     }
 
-    @Override
-    public void sharePost(int userId, int postId) {
-        Interaction i = new Interaction();
-        i.setUserId(userId);
-        i.setPostId(postId);
-        i.setInteractionType("SHARE");
-        i.setCreatedAt(LocalDateTime.now());
-        interactionDao.saveInteraction(i);
+    public void sharePost(long userId, long postId) {
+        dao.saveInteraction(userId, postId, "SHARE", null);
+        System.out.println("✅ Post shared successfully");
     }
 
-    @Override
-    public PostAnalytics viewPostAnalytics(int postId) {
-        return interactionDao.getPostAnalytics(postId);
+    public void viewPostAnalytics(long postId) {
+        int likes = dao.countByType(postId, "LIKE");
+        int comments = dao.countByType(postId, "COMMENT");
+        int shares = dao.countByType(postId, "SHARE");
+
+        System.out.println("\n📊 Post Analytics:");
+        System.out.println("Likes   : " + likes);
+        System.out.println("Comments: " + comments);
+        System.out.println("Shares  : " + shares);
+        System.out.println("Reach   : " + (likes + comments + shares));
     }
 }
