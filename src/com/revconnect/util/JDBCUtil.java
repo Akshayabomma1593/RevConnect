@@ -6,23 +6,19 @@ import java.sql.DriverManager;
 public class JDBCUtil {
 
     private static final String URL =
-            "jdbc:mysql://localhost:3306/revconnect?useSSL=false&serverTimezone=UTC";
-
-    private static final String USER = "root";        // your MySQL username
-    private static final String PASSWORD = "Hema@123"; // your MySQL password
+            "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+    private static final String USERNAME = "revconnect";
+    private static final String PASSWORD = "revconnect123";
 
     public static Connection getConnection() {
 
+        Connection con = null;
         try {
-            // Load MySQL Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Return connection
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("❌ Database connection failed");
         }
+        return con;
     }
 }
