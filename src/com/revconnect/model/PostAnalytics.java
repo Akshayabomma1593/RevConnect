@@ -9,21 +9,51 @@ public class PostAnalytics {
     private int totalShares;
     private int reach;
 
-    public int getAnalyticsId() { return analyticsId; }
-    public void setAnalyticsId(int analyticsId) { this.analyticsId = analyticsId; }
+    public int getAnalyticsId() {
+        return analyticsId;
+    }
 
-    public int getPostId() { return postId; }
-    public void setPostId(int postId) { this.postId = postId; }
+    public void setAnalyticsId(int analyticsId) {
+        this.analyticsId = analyticsId;
+    }
 
-    public int getTotalLikes() { return totalLikes; }
-    public void setTotalLikes(int totalLikes) { this.totalLikes = totalLikes; }
+    public int getPostId() {
+        return postId;
+    }
 
-    public int getTotalComments() { return totalComments; }
-    public void setTotalComments(int totalComments) { this.totalComments = totalComments; }
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
 
-    public int getTotalShares() { return totalShares; }
-    public void setTotalShares(int totalShares) { this.totalShares = totalShares; }
+    public int getTotalLikes() {
+        return totalLikes;
+    }
 
-    public int getReach() { return reach; }
-    public void setReach(int reach) { this.reach = reach; }
+    public void setTotalLikes(int totalLikes) {
+        this.totalLikes = totalLikes;
+    }
+
+    public int getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(int totalComments) {
+        this.totalComments = totalComments;
+    }
+
+    public int getTotalShares() {
+        return totalShares;
+    }
+
+    public void setTotalShares(int totalShares) {
+        this.totalShares = totalShares;
+    }
+
+    public int getReach() {
+        return reach;
+    }
+
+    public void setReach(int reach) {
+        this.reach = reach;
+    }
 }
