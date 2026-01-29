@@ -1,29 +1,16 @@
 package com.revconnect.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Interaction {
+
     private int interactionId;
     private int postId;
     private int userId;
-    private String interactionType;
+    private String interactionType; // LIKE / COMMENT
     private String commentText;
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
-    public Interaction() {}
-
-    public Interaction(int interactionId, int postId, int userId,
-                       String interactionType, String commentText,
-                       LocalDateTime createdAt) {
-        this.interactionId = interactionId;
-        this.postId = postId;
-        this.userId = userId;
-        this.interactionType = interactionType;
-        this.commentText = commentText;
-        this.createdAt = createdAt;
-    }
-
-    // getters & setters
     public int getInteractionId() { return interactionId; }
     public void setInteractionId(int interactionId) { this.interactionId = interactionId; }
 
@@ -34,15 +21,11 @@ public class Interaction {
     public void setUserId(int userId) { this.userId = userId; }
 
     public String getInteractionType() { return interactionType; }
-    public void setInteractionType(String interactionType) {
-        this.interactionType = interactionType;
-    }
+    public void setInteractionType(String interactionType) { this.interactionType = interactionType; }
 
     public String getCommentText() { return commentText; }
     public void setCommentText(String commentText) { this.commentText = commentText; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 }
