@@ -16,6 +16,7 @@ public class MainMenu {
         ConnectionController connectionController = new ConnectionController();
         NotificationController notificationController = new NotificationController();
         MessageController messageController = new MessageController();
+        PostAnalyticsController analyticsController = new PostAnalyticsController(); // 🔥
 
         while (true) {
             System.out.println("\n=== RevConnect ===");
@@ -29,7 +30,6 @@ public class MainMenu {
 
             switch (choice) {
 
-                // MODULE-1 : AUTH
                 case 1:
                     userController.register();
                     break;
@@ -43,20 +43,20 @@ public class MainMenu {
                         while (loggedIn) {
                             System.out.println("\n=== Welcome " + user.getUsername() + " ===");
 
-                            // PROFILE MODULE
+                            // PROFILE
                             System.out.println("1. Create / Update Profile");
                             System.out.println("2. View My Profile");
 
-                            // MODULE-2 : POSTS
+                            // POSTS
                             System.out.println("3. Create Post");
                             System.out.println("4. View All Posts");
 
-                            // MODULE-3 : INTERACTIONS
+                            // INTERACTIONS
                             System.out.println("5. Like a Post");
                             System.out.println("6. Comment on a Post");
                             System.out.println("7. View Comments");
 
-                            // MODULE-4 : CONNECTIONS & NOTIFICATIONS
+                            // CONNECTIONS & NOTIFICATIONS
                             System.out.println("8. Send Connection Request");
                             System.out.println("9. View Pending Requests");
                             System.out.println("10. Accept Connection Request");
@@ -64,11 +64,14 @@ public class MainMenu {
                             System.out.println("12. View Notifications");
                             System.out.println("13. Mark Notification as Read");
 
-                            // MODULE-5 : MESSAGING
+                            // MESSAGING
                             System.out.println("14. Send Message");
                             System.out.println("15. View Chat");
 
-                            System.out.println("16. Logout");
+                            //POST ANALYTICS
+                            System.out.println("16. View Post Analytics");
+
+                            System.out.println("17. Logout");
                             System.out.print("Choose: ");
 
                             int option = sc.nextInt();
@@ -76,73 +79,58 @@ public class MainMenu {
 
                             switch (option) {
 
-                                // PROFILE
                                 case 1:
                                     profileController.createOrUpdateProfile(user);
                                     break;
-
                                 case 2:
                                     profileController.viewProfile(user);
                                     break;
-
-                                // POSTS
                                 case 3:
                                     postController.createPost(user);
                                     break;
-
                                 case 4:
                                     postController.viewAllPosts();
                                     break;
-
-                                // INTERACTIONS
                                 case 5:
                                     interactionController.likePost(user);
                                     break;
-
                                 case 6:
                                     interactionController.commentOnPost(user);
                                     break;
-
                                 case 7:
                                     interactionController.viewComments();
                                     break;
-
-                                // CONNECTIONS
                                 case 8:
                                     connectionController.sendRequest(user);
                                     break;
-
                                 case 9:
                                     connectionController.viewPending(user);
                                     break;
-
                                 case 10:
                                     connectionController.acceptRequest();
                                     break;
-
                                 case 11:
                                     connectionController.viewConnections(user);
                                     break;
-
-                                // NOTIFICATIONS
                                 case 12:
                                     notificationController.viewNotifications(user);
                                     break;
-
                                 case 13:
                                     notificationController.markAsRead();
                                     break;
-
-                                // MESSAGING
                                 case 14:
                                     messageController.sendMessage(user);
                                     break;
-
                                 case 15:
                                     messageController.viewChat(user);
                                     break;
 
+                                // 🔥 POST ANALYTICS
                                 case 16:
+                                    analyticsController.viewAnalytics();
+                                    break;
+
+                                case 17:
                                     loggedIn = false;
                                     System.out.println("👋 Logged out successfully");
                                     break;
