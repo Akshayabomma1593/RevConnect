@@ -6,9 +6,9 @@ import java.sql.DriverManager;
 public class JDBCUtil {
 
     private static final String URL =
-            "jdbc:oracle:thin:@localhost:1521/ORCLPDB";
-    private static final String USERNAME = "revconnect";
-    private static final String PASSWORD = "revconnect123";
+            "jdbc:oracle:thin:@db.freesql.com:1521/23ai_34ui2";
+    private static final String USERNAME = "GOWTHAMREDDY20201_SCHEMA_AG8XG";
+    private static final String PASSWORD = "17MUGKJHCB7NX5FF4OBTAKDz4T7X!T";
 
     public static Connection getConnection() {
 
