@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class UserController {
 
+<<<<<<< HEAD
     private final IUserService userService;
    :wq private final Scanner sc;
 
@@ -86,3 +87,6 @@ public class UserController {
         System.out.println("Profile feature coming next...");
     }
 }
+=======
+}
+>>>>>>> feature/post-hashtag-posthashtag
