@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class UserController {
 
     private final IUserService userService;
-    private final Scanner sc;
+   :wq private final Scanner sc;
 
     public UserController() {
         userService = new UserServiceImpl();
