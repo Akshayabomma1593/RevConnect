@@ -125,14 +125,14 @@ public class MainMenu {
                                     messageController.viewChat(user);
                                     break;
 
-                                // 🔥 POST ANALYTICS
+                                 POST ANALYTICS
                                 case 16:
                                     analyticsController.viewAnalytics();
                                     break;
 
                                 case 17:
                                     loggedIn = false;
-                                    System.out.println("👋 Logged out successfully");
+                                    System.out.println(" Logged out successfully");
                                     break;
 
                                 default:
