@@ -9,19 +9,6 @@ public class PostAnalytics {
     private int totalShares;
     private int reach;
 
-    public PostAnalytics() {}
-
-    public PostAnalytics(int analyticsId, int postId,
-                         int totalLikes, int totalComments,
-                         int totalShares, int reach) {
-        this.analyticsId = analyticsId;
-        this.postId = postId;
-        this.totalLikes = totalLikes;
-        this.totalComments = totalComments;
-        this.totalShares = totalShares;
-        this.reach = reach;
-    }
-
     public int getAnalyticsId() { return analyticsId; }
     public void setAnalyticsId(int analyticsId) { this.analyticsId = analyticsId; }
 
