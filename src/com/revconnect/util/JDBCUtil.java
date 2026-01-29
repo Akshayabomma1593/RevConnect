@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class JDBCUtil {
 
     private static final String URL =
-            "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+            "jdbc:oracle:thin:@localhost:1521/ORCLPDB";
     private static final String USERNAME = "revconnect";
     private static final String PASSWORD = "revconnect123";
 
