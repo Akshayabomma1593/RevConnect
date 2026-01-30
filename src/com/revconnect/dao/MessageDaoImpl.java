@@ -3,80 +3,69 @@ package com.revconnect.dao;
 import com.revconnect.model.Message;
 import com.revconnect.util.JDBCUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageDaoImpl implements IMessageDao {
 
     @Override
-    public boolean sendMessage(Message message) {
+    public void sendMessage(Message message) {
 
         String sql =
-                "INSERT INTO messages (message_id, sender_id, receiver_id, content, is_read, sent_at) " +
-                        "VALUES (?, ?, ?, ?, 0, SYSDATE)";
+                "INSERT INTO messages " +
+                        "(sender_id, receiver_id, message_text, is_read, sent_at) " +
+                        "VALUES (?, ?, ?, 0, SYSDATE)";
 
         try (Connection con = JDBCUtil.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, message.getMessageId());
-            ps.setInt(2, message.getSenderId());
-            ps.setInt(3, message.getReceiverId());
-            ps.setString(4, message.getContent());
+            ps.setInt(1, message.getSenderId());
+            ps.setInt(2, message.getReceiverId());
+            ps.setString(3, message.getMessageText());
 
-            return ps.executeUpdate() > 0;
+            ps.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
-    public List<Message> getMessagesByReceiver(int receiverId) {
+    public List<Message> getChat(int user1, int user2) {
 
-        List<Message> messages = new ArrayList<>();
+        List<Message> chat = new ArrayList<>();
 
-        String sql = "SELECT * FROM messages WHERE receiver_id = ?";
+        String sql =
+                "SELECT sender_id, receiver_id, " +
+                        "DBMS_LOB.SUBSTR(message_text, 500, 1) AS message_text, sent_at " +
+                        "FROM messages " +
+                        "WHERE (sender_id=? AND receiver_id=?) " +
+                        "   OR (sender_id=? AND receiver_id=?) " +
+                        "ORDER BY sent_at";
 
         try (Connection con = JDBCUtil.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, receiverId);
+            ps.setInt(1, user1);
+            ps.setInt(2, user2);
+            ps.setInt(3, user2);
+            ps.setInt(4, user1);
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Message msg = new Message();
-                msg.setMessageId(rs.getInt("message_id"));
-                msg.setSenderId(rs.getInt("sender_id"));
-                msg.setReceiverId(rs.getInt("receiver_id"));
-                msg.setContent(rs.getString("content"));
-                msg.setRead(rs.getInt("is_read") == 1);
-                messages.add(msg);
+                Message m = new Message();
+                m.setSenderId(rs.getInt("sender_id"));
+                m.setReceiverId(rs.getInt("receiver_id"));
+                m.setMessageText(rs.getString("message_text"));
+                m.setSentAt(rs.getDate("sent_at"));
+                chat.add(m);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return messages;
-    }
-
-    @Override
-    public boolean markAsRead(int messageId) {
-
-        String sql = "UPDATE messages SET is_read = 1 WHERE message_id = ?";
-
-        try (Connection con = JDBCUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, messageId);
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        return chat;
     }
 }
