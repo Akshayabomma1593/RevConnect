@@ -1,53 +1,68 @@
 package com.revconnect.controller;
 
+import com.revconnect.model.Profile;
 import com.revconnect.model.User;
-import com.revconnect.service.IUserService;
-import com.revconnect.service.UserServiceImpl;
+import com.revconnect.service.*;
 
 import java.util.Scanner;
 
-public class UserController {
+public class ProfileController {
 
-    private IUserService userService = new UserServiceImpl();
+    private IProfileService profileService =
+            new ProfileServiceImpl();
+
     private Scanner sc = new Scanner(System.in);
 
-    public void register() {
+    public void createOrUpdateProfile(User user) {
 
-        User user = new User();
+        Profile existing =
+                profileService.viewProfile(user.getUserId());
 
-        System.out.print("Email: ");
-        user.setEmail(sc.nextLine());
+        Profile p = new Profile();
+        p.setUserId(user.getUserId());
 
-        System.out.print("Username: ");
-        user.setUsername(sc.nextLine());
+        System.out.print("Display Name: ");
+        p.setDisplayName(sc.nextLine());
 
-        System.out.print("Password: ");
-        user.setPassword(sc.nextLine());
+        System.out.print("Bio: ");
+        p.setBio(sc.nextLine());
 
-        System.out.print("Role (PERSONAL/CREATOR/BUSINESS): ");
-        user.setRole(sc.nextLine().toUpperCase());
+        System.out.print("Address: ");
+        p.setAddress(sc.nextLine());
 
-        userService.register(user);
-    }
+        System.out.print("Contact Info: ");
+        p.setContactInfo(sc.nextLine());
 
-    public User login() {
+        System.out.print("Website: ");
+        p.setWebsite(sc.nextLine());
 
-        System.out.print("Username: ");
-        String username = sc.nextLine();
+        System.out.print("Profile Picture Path: ");
+        p.setProfilePicturePath(sc.nextLine());
 
-        System.out.print("Password: ");
-        String password = sc.nextLine();
-
-        User user = userService.login(username, password);
-
-        if (user != null) {
-            System.out.println("✅ Login Successful!");
-            System.out.println("Welcome " + user.getUsername()
-                    + " (" + user.getRole() + ")");
-            return user;
+        if (existing == null) {
+            profileService.createProfile(p);
         } else {
-            System.out.println("❌ Invalid Credentials");
-            return null;
+            profileService.updateProfile(p);
         }
     }
+
+    public void viewProfile(User user) {
+
+        Profile p =
+                profileService.viewProfile(user.getUserId());
+
+        if (p == null) {
+            System.out.println("❌ Profile not created yet");
+            return;
+        }
+
+        System.out.println("\n--- Profile ---");
+        System.out.println("Name: " + p.getDisplayName());
+        System.out.println("Bio: " + p.getBio());
+        System.out.println("Address: " + p.getAddress());
+        System.out.println("Contact: " + p.getContactInfo());
+        System.out.println("Website: " + p.getWebsite());
+        System.out.println("Profile Pic: " + p.getProfilePicturePath());
+    }
 }
+
