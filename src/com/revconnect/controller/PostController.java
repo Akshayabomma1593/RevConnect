@@ -1,34 +1,38 @@
 package com.revconnect.controller;
 
 import com.revconnect.model.Post;
-import com.revconnect.service.IPostService;
-import com.revconnect.service.PostServiceImpl;
+import com.revconnect.model.User;
+import com.revconnect.service.*;
 
-import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class PostController {
 
-    private IPostService postService;
+    private IPostService postService = new PostServiceImpl();
+    private Scanner sc = new Scanner(System.in);
 
-    public PostController() {
-        this.postService = new PostServiceImpl();
+    public void createPost(User user) {
+
+        System.out.print("Enter post content: ");
+        String content = sc.nextLine();
+
+        System.out.print("Enter hashtags (comma separated): ");
+        String input = sc.nextLine();
+
+        List<String> hashtags = Arrays.asList(input.split(","));
+
+        Post post = new Post();
+        post.setUserId(user.getUserId());
+        post.setContent(content);
+        post.setHashtags(hashtags);
+
+        postService.createPost(post);
+        System.out.println("✅ Post created with hashtags");
     }
 
-    // Simulating a POST request handler
-    public void createPost(int postId, int userId, String content, String postType, String[] hashtags) {
-        Post post = new Post();
-        post.setPostId(postId);
-        post.setUserId(userId);
-        post.setContent(content);
-        post.setPostType(postType);
-        post.setCreatedAt(LocalDateTime.now());
-
-        int createdPostId = postService.createPostWithHashtags(post, List.of(hashtags));
-        if (createdPostId != -1) {
-            System.out.println("Post created successfully with ID: " + createdPostId);
-        } else {
-            System.out.println("Failed to create post.");
-        }
+    public void viewAllPosts() {
+        postService.viewAllPosts();
     }
 }
