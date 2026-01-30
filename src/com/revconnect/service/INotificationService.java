@@ -1,5 +1,10 @@
 package com.revconnect.service;
 
+import com.revconnect.model.Notification;
+import java.util.List;
+
 public interface INotificationService {
-    boolean notifyUser(int userId, String message);
+
+    List<Notification> viewNotifications(int userId);
+    void markAsRead(int notificationId);
 }
