@@ -1,28 +1,45 @@
 package com.revconnect.controller;
 
-import com.revconnect.service.INotificationService;
-import com.revconnect.service.NotificationServiceImpl;
+import com.revconnect.model.Notification;
+import com.revconnect.model.User;
+import com.revconnect.service.*;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class NotificationController {
-    private final INotificationService notificationService; // Field is final
 
-        public NotificationController() {
-            this.notificationService = new NotificationServiceImpl(); // Constructor used below
+    private INotificationService notificationService =
+            new NotificationServiceImpl();
+
+    private Scanner sc = new Scanner(System.in);
+
+    public void viewNotifications(User user) {
+
+        List<Notification> list =
+                notificationService.viewNotifications(user.getUserId());
+
+        System.out.println("\n--- Notifications ---");
+
+        if (list.isEmpty()) {
+            System.out.println("No notifications.");
+            return;
         }
 
-        public void sendNotification(int userId, String message) {
-            boolean success = notificationService.notifyUser(userId, message); // Uses service
-            if (success) {
-                System.out.println("Notification successfully delivered to User " + userId + ".");
-            } else {
-                System.out.println("Error: Could not deliver notification to User " + userId + ".");
-            }
-        }
-
-        public static void main(String[] args) {
-            NotificationController controller = new NotificationController();
-
-            // Calling the method clears the "never used" warning
-            controller.sendNotification(101, "Test Notification Message");
+        for (Notification n : list) {
+            System.out.println(
+                    "ID: " + n.getNotificationId() +
+                            " | " + n.getMessage() +
+                            (n.getIsRead() == 0 ? " (UNREAD)" : "")
+            );
         }
     }
+
+    public void markAsRead() {
+        System.out.print("Enter Notification ID to mark as read: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        notificationService.markAsRead(id);
+        System.out.println("✅ Notification marked as read");
+    }
+}
