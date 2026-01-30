@@ -1,5 +1,12 @@
 package com.revconnect.service;
+
+import com.revconnect.model.Connection;
+import java.util.List;
+
 public interface IConnectionService {
-    boolean sendRequest(int senderId, int receiverId);
-    boolean acceptRequest(int senderId, int receiverId);
+
+    void sendRequest(int requesterId, int targetUserId);
+    void acceptRequest(int connectionId, int requesterId);
+    List<Connection> viewPending(int userId);
+    List<Connection> viewConnections(int userId);
 }
