@@ -1,8 +1,10 @@
 package com.revconnect.service;
 
-import com.revconnect.model.User;
+import com.revconnect.model.Profile;
 
-public interface IUserService {
-    void register(User user);
-    User login(String username, String password);
+public interface IProfileService {
+
+    void createProfile(Profile profile);
+    Profile viewProfile(int userId);
+    void updateProfile(Profile profile);
 }
