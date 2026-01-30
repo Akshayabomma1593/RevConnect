@@ -5,9 +5,6 @@ import java.util.List;
 
 public interface IMessageDao {
 
-    boolean sendMessage(Message message);
-
-    List<Message> getMessagesByReceiver(int receiverId);
-
-    boolean markAsRead(int messageId);
+    void sendMessage(Message message);
+    List<Message> getChat(int user1, int user2);
 }
