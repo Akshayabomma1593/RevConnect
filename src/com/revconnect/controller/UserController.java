@@ -1,92 +1,53 @@
 package com.revconnect.controller;
 
 import com.revconnect.model.User;
-import com.revconnect.service.IUserService;=++++
+import com.revconnect.service.IUserService;
 import com.revconnect.service.UserServiceImpl;
 
 import java.util.Scanner;
 
 public class UserController {
 
-<<<<<<< HEAD
-    private final IUserService userService;
-   :wq private final Scanner sc;
+    private IUserService userService = new UserServiceImpl();
+    private Scanner sc = new Scanner(System.in);
 
-    public UserController() {
-        userService = new UserServiceImpl();
-        sc = new Scanner(System.in);
-    }
+    public void register() {
 
-    public void userMenu() {
-        while (true) {
-            System.out.println("\n--- User Module ---");
-            System.out.println("1. Register");
-            System.out.println("2. Login");
-            System.out.println("3. View Profile");
-            System.out.println("4. Back to Main Menu");
-
-            int choice = sc.nextInt();
-            sc.nextLine();
-
-            switch (choice) {
-                case 1 -> registerUser();
-                case 2 -> loginUser();
-                case 3 -> viewProfile();
-                case 4 -> { return; }
-                default -> System.out.println("Invalid choice");
-            }
-        }
-    }
-
-    private void registerUser() {
         User user = new User();
 
-        System.out.print("Enter User ID: ");
-        user.setUserId(sc.nextInt());
-        sc.nextLine();
-
-        System.out.print("Enter Username: ");
-        user.setUsername(sc.nextLine());
-
-        System.out.print("Enter Email: ");
+        System.out.print("Email: ");
         user.setEmail(sc.nextLine());
 
-        System.out.print("Enter Password: ");
+        System.out.print("Username: ");
+        user.setUsername(sc.nextLine());
+
+        System.out.print("Password: ");
         user.setPassword(sc.nextLine());
 
-        // ROLE SELECTION
-        System.out.println("Select Role:");
-        System.out.println("1. PERSONAL_USER");
-        System.out.println("2. CONTENT_CREATOR");
-        System.out.println("3. BUSINESS_USER");
+        System.out.print("Role (PERSONAL/CREATOR/BUSINESS): ");
+        user.setRole(sc.nextLine().toUpperCase());
 
-        int roleChoice = sc.nextInt();
-        sc.nextLine();
+        userService.register(user);
+    }
 
-        switch (roleChoice) {
-            case 1 -> user.setRole("PERSONAL_USER");
-            case 2 -> user.setRole("CONTENT_CREATOR");
-            case 3 -> user.setRole("BUSINESS_USER");
-            default -> user.setRole("PERSONAL_USER");
-        }
+    public User login() {
 
-        boolean success = userService.registerUser(user);
+        System.out.print("Username: ");
+        String username = sc.nextLine();
 
-        if (success) {
-            System.out.println("Registration successful!");
+        System.out.print("Password: ");
+        String password = sc.nextLine();
+
+        User user = userService.login(username, password);
+
+        if (user != null) {
+            System.out.println("✅ Login Successful!");
+            System.out.println("Welcome " + user.getUsername()
+                    + " (" + user.getRole() + ")");
+            return user;
         } else {
-            System.out.println("Registration failed!");
+            System.out.println("❌ Invalid Credentials");
+            return null;
         }
     }
-
-    private void loginUser() {
-        System.out.println("Login feature coming next...");
-    }
-
-    private void viewProfile() {
-        System.out.println("Profile feature coming next...");
-    }
 }
-=======
-}
->>>>>>> feature/post-hashtag-posthashtag
