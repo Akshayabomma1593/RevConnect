@@ -5,9 +5,6 @@ import java.util.List;
 
 public interface IMessageService {
 
-    boolean sendMessage(Message message);
-
-    List<Message> viewInbox(int receiverId);
-
-    boolean markMessageAsRead(int messageId);
+    void sendMessage(Message message);
+    List<Message> viewChat(int user1, int user2);
 }
