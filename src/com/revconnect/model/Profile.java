@@ -6,81 +6,76 @@ public class Profile {
     private int userId;
     private String displayName;
     private String bio;
+    private String address;
     private String contactInfo;
     private String website;
     private String profilePicturePath;
 
-    // No-arg constructor
-    public Profile() {
-    }
-
-    // All-args constructor
-    public Profile(int profileId, int userId, String displayName,
-                   String bio, String contactInfo,
-                   String website, String profilePicturePath) {
-        this.profileId = profileId;
-        this.userId = userId;
-        this.displayName = displayName;
-        this.bio = bio;
-        this.contactInfo = contactInfo;
-        this.website = website;
-        this.profilePicturePath = profilePicturePath;
-    }
+    // ===== GETTERS =====
 
     public int getProfileId() {
         return profileId;
-    }
-
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public String getDisplayName() {
         return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
     }
 
     public String getBio() {
         return bio;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public String getAddress() {
+        return address;
     }
 
     public String getContactInfo() {
         return contactInfo;
     }
 
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
-    }
-
     public String getWebsite() {
         return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
     }
 
     public String getProfilePicturePath() {
         return profilePicturePath;
     }
 
+    // ===== SETTERS =====
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
     public void setProfilePicturePath(String profilePicturePath) {
         this.profilePicturePath = profilePicturePath;
     }
 }
-
