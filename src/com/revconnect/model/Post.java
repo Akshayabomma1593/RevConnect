@@ -1,32 +1,16 @@
 package com.revconnect.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 public class Post {
 
     private int postId;
     private int userId;
     private String content;
-    private String postType;
-    private Integer originalPostId;
-    private boolean isPinned;
-    private LocalDateTime createdAt;
+    private Date createdAt;
+    private List<String> hashtags;
 
-    public Post() {}
-
-    public Post(int postId, int userId, String content, String postType,
-                Integer originalPostId, boolean isPinned,
-                LocalDateTime createdAt) {
-        this.postId = postId;
-        this.userId = userId;
-        this.content = content;
-        this.postType = postType;
-        this.originalPostId = originalPostId;
-        this.isPinned = isPinned;
-        this.createdAt = createdAt;
-    }
-
-    // getters & setters
     public int getPostId() { return postId; }
     public void setPostId(int postId) { this.postId = postId; }
 
@@ -36,19 +20,9 @@ public class Post {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public String getPostType() { return postType; }
-    public void setPostType(String postType) { this.postType = postType; }
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 
-    public Integer getOriginalPostId() { return originalPostId; }
-    public void setOriginalPostId(Integer originalPostId) {
-        this.originalPostId = originalPostId;
-    }
-
-    public boolean isPinned() { return isPinned; }
-    public void setPinned(boolean isPinned) { this.isPinned = isPinned; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public List<String> getHashtags() { return hashtags; }
+    public void setHashtags(List<String> hashtags) { this.hashtags = hashtags; }
 }
