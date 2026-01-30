@@ -136,7 +136,7 @@ public class MainMenu {
                                     break;
 
                                 default:
-                                    System.out.println("❌ Invalid option");
+                                    System.out.println("Invalid option");
                             }
                         }
                     }
@@ -147,7 +147,7 @@ public class MainMenu {
                     System.exit(0);
 
                 default:
-                    System.out.println("❌ Invalid choice");
+                    System.out.println("Invalid choice");
             }
         }
     }
