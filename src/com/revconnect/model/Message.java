@@ -1,6 +1,6 @@
 package com.revconnect.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Message {
 
@@ -8,23 +8,9 @@ public class Message {
     private int senderId;
     private int receiverId;
     private String messageText;
-    private boolean isRead;
-    private LocalDateTime sentAt;
+    private int isRead;
+    private Date sentAt;
 
-    public Message() {}
-
-    public Message(int messageId, int senderId, int receiverId,
-                   String messageText, boolean isRead,
-                   LocalDateTime sentAt) {
-        this.messageId = messageId;
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.messageText = messageText;
-        this.isRead = isRead;
-        this.sentAt = sentAt;
-    }
-
-    // getters & setters
     public int getMessageId() { return messageId; }
     public void setMessageId(int messageId) { this.messageId = messageId; }
 
@@ -35,13 +21,11 @@ public class Message {
     public void setReceiverId(int receiverId) { this.receiverId = receiverId; }
 
     public String getMessageText() { return messageText; }
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
+    public void setMessageText(String messageText) { this.messageText = messageText; }
 
-    public boolean isRead() { return isRead; }
-    public void setRead(boolean isRead) { this.isRead = isRead; }
+    public int getIsRead() { return isRead; }
+    public void setIsRead(int isRead) { this.isRead = isRead; }
 
-    public LocalDateTime getSentAt() { return sentAt; }
-    public void setSentAt(LocalDateTime sentAt) { this.sentAt = sentAt; }
+    public Date getSentAt() { return sentAt; }
+    public void setSentAt(Date sentAt) { this.sentAt = sentAt; }
 }
