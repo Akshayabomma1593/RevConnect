@@ -1,14 +1,22 @@
 package com.revconnect.service;
 
-import com.revconnect.dao.INotificationDao;
-import com.revconnect.dao.NotificationDaoImpl;
+import com.revconnect.dao.*;
+import com.revconnect.model.Notification;
+
+import java.util.List;
 
 public class NotificationServiceImpl implements INotificationService {
 
-    private INotificationDao notificationDao = new NotificationDaoImpl();
+    private INotificationDao notificationDao =
+            new NotificationDaoImpl();
 
     @Override
-    public boolean notifyUser(int userId, String message) {
-        return notificationDao.createNotification(userId, message);
+    public List<Notification> viewNotifications(int userId) {
+        return notificationDao.getNotifications(userId);
+    }
+
+    @Override
+    public void markAsRead(int notificationId) {
+        notificationDao.markAsRead(notificationId);
     }
 }
