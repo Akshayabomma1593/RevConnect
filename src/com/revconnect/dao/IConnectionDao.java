@@ -1,6 +1,12 @@
 package com.revconnect.dao;
 
+import com.revconnect.model.Connection;
+import java.util.List;
+
 public interface IConnectionDao {
-    boolean sendRequest(int senderId, int receiverId);
-    boolean acceptRequest(int senderId, int receiverId);
+
+    void sendRequest(int requesterId, int targetUserId);
+    void updateStatus(int connectionId, String status);
+    List<Connection> getPendingRequests(int userId);
+    List<Connection> getConnections(int userId);
 }
