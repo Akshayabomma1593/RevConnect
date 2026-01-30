@@ -125,7 +125,7 @@ public class MainMenu {
                                     messageController.viewChat(user);
                                     break;
 
-                                 POST ANALYTICS
+                                 //POST ANALYTICS
                                 case 16:
                                     analyticsController.viewAnalytics();
                                     break;
